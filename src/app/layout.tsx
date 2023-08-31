@@ -1,5 +1,5 @@
+import { ModalProvider } from "@/providers/modal-provider";
 import "@/styles/globals.css";
-
 import { ClerkProvider } from "@clerk/nextjs";
 
 export const metadata = {
@@ -15,7 +15,10 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body>{children}</body>
+        <body>
+          <ModalProvider />
+          {children}
+        </body>
       </html>
     </ClerkProvider>
   );
