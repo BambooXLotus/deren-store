@@ -3,7 +3,7 @@ import { prisma } from '@/server/db';
 import { auth } from '@clerk/nextjs';
 import { NextResponse } from 'next/server';
 
-export async function Post(req: Request) {
+export async function POST(req: Request) {
   try {
     const { userId } = auth()
     if (!userId) {

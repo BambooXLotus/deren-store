@@ -20,7 +20,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { type Store } from "@prisma/client";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 type StoreModalProps = {
@@ -29,7 +28,7 @@ type StoreModalProps = {
 
 export const StoreModal: React.FC<StoreModalProps> = () => {
   const storeModal = useStoreModal();
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<StoreCreateRequest>({
     resolver: zodResolver(StoreValidator),
@@ -38,16 +37,15 @@ export const StoreModal: React.FC<StoreModalProps> = () => {
     },
   });
 
-  const { mutate } = useMutation({
+  const { mutate, isLoading } = useMutation({
     mutationFn: async (values: StoreCreateRequest) => {
-      const { data } = await axios.post<Store>("/api/store", values);
+      const { data } = await axios.post<Store>("/api/stores", values);
       return data;
     },
   });
 
-  async function onSubmit(values: StoreCreateRequest) {
-    //TODO: Create Store
-    console.log(values);
+  function onSubmit(values: StoreCreateRequest) {
+    mutate(values);
   }
 
   return (
@@ -79,7 +77,11 @@ export const StoreModal: React.FC<StoreModalProps> = () => {
                 )}
               />
               <div className="pt-6 space-x-2 flex items-center justify-end w-full">
-                <Button d variant={"outline"} onClick={storeModal.onClose}>
+                <Button
+                  disabled={isLoading}
+                  variant="outline"
+                  onClick={storeModal.onClose}
+                >
                   Cancel
                 </Button>
                 <Button type="submit">Continue</Button>
