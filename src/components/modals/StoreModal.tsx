@@ -21,6 +21,7 @@ import { type Store } from "@prisma/client";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
 
 type StoreModalProps = {
   id?: string;
@@ -28,7 +29,6 @@ type StoreModalProps = {
 
 export const StoreModal: React.FC<StoreModalProps> = () => {
   const storeModal = useStoreModal();
-  // const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<StoreCreateRequest>({
     resolver: zodResolver(StoreValidator),
@@ -41,6 +41,17 @@ export const StoreModal: React.FC<StoreModalProps> = () => {
     mutationFn: async (values: StoreCreateRequest) => {
       const { data } = await axios.post<Store>("/api/stores", values);
       return data;
+    },
+    onSuccess: () => {
+      if (form.formState.isSubmitSuccessful) {
+        toast.success("Store Created");
+        form.reset({
+          name: "",
+        });
+      }
+    },
+    onError: () => {
+      toast.error("Something Wong!!!");
     },
   });
 
