@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
-export const StoreValidator = z.object({
+export const StoreCreateValidator = z.object({
   name: z.string().min(1),
 });
 
-export type StoreCreateRequest = z.infer<typeof StoreValidator>
+export type StoreCreateRequest = z.infer<typeof StoreCreateValidator>

@@ -13,13 +13,14 @@ import { Input } from "@/components/ui/Input";
 import { Modal } from "@/components/ui/Modal";
 import { useStoreModal } from "@/hooks/use-store-modal";
 import {
-  StoreValidator,
+  StoreCreateValidator,
   type StoreCreateRequest,
 } from "@/lib/validators/store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { type Store } from "@prisma/client";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 
@@ -29,9 +30,10 @@ type StoreModalProps = {
 
 export const StoreModal: React.FC<StoreModalProps> = () => {
   const storeModal = useStoreModal();
+  const router = useRouter();
 
   const form = useForm<StoreCreateRequest>({
-    resolver: zodResolver(StoreValidator),
+    resolver: zodResolver(StoreCreateValidator),
     defaultValues: {
       name: "",
     },
@@ -42,15 +44,18 @@ export const StoreModal: React.FC<StoreModalProps> = () => {
       const { data } = await axios.post<Store>("/api/stores", values);
       return data;
     },
-    onSuccess: () => {
-      if (form.formState.isSubmitSuccessful) {
-        toast.success("Store Created");
-        form.reset({
-          name: "",
-        });
-      }
+    onSuccess: (store) => {
+      // if (form.formState.isSubmitSuccessful) {
+      //   toast.success("Store Created");
+      //   form.reset({
+      //     name: "",
+      //   });
+      // }
+      // window.location.assign(`/${store.id}`);
+      router.push(`/${store.id}`);
     },
-    onError: () => {
+    onError: (error) => {
+      console.log("error", error);
       toast.error("Something Wong!!!");
     },
   });

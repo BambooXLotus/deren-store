@@ -1,4 +1,4 @@
-import { StoreValidator } from '@/lib/validators/store';
+import { StoreCreateValidator } from '@/lib/validators/store';
 import { prisma } from '@/server/db';
 import { auth } from '@clerk/nextjs';
 import { NextResponse } from 'next/server';
@@ -12,7 +12,7 @@ export async function POST(req: Request) {
 
     const body = await req.json() as unknown;
 
-    const { name } = StoreValidator.parse(body)
+    const { name } = StoreCreateValidator.parse(body)
 
     if (!name) {
       return new NextResponse('Name is required', { status: 400 })
