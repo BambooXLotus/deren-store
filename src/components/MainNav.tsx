@@ -22,6 +22,11 @@ export const MainNav: React.FC<React.HtmlHTMLAttributes<HTMLElement>> = ({
 
   const routes = [
     {
+      href: `/${storeId}`,
+      label: "Overview",
+      active: pathname === `/${storeId}`,
+    },
+    {
       href: `/${storeId}/settings`,
       label: "Settings",
       active: pathname === `/${storeId}/settings`,

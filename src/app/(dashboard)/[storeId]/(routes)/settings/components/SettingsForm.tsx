@@ -1,6 +1,7 @@
 "use client";
 
 import { AlertModal } from "@/components/modals/AlertModal";
+import { ApiAlert } from "@/components/ui/ApiAlert";
 import { Button } from "@/components/ui/Button";
 import {
   Form,
@@ -13,6 +14,7 @@ import {
 import { Heading } from "@/components/ui/Heading";
 import { Input } from "@/components/ui/Input";
 import { Separator } from "@/components/ui/Separator";
+import { useOrigin } from "@/hooks/use-origin";
 import {
   type StoreEditRequest,
   StoreEditValidator,
@@ -34,6 +36,7 @@ type SettingsFormProps = {
 export const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
   const params = useParams();
   const router = useRouter();
+  const origin = useOrigin();
 
   const [open, setOpen] = useState(false);
 
@@ -134,6 +137,12 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
           </Button>
         </form>
       </Form>
+      <Separator />
+      <ApiAlert
+        title="NEXT_PUBLIC_API_URL"
+        description={`${origin}/api/${storeId}`}
+        variant="public"
+      />
     </>
   );
 };
