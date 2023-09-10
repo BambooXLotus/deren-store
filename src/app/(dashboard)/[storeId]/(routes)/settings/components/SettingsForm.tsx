@@ -1,5 +1,6 @@
 "use client";
 
+import { AlertModal } from "@/components/modals/AlertModal";
 import { Button } from "@/components/ui/Button";
 import {
   Form,
@@ -41,9 +42,10 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
     defaultValues: initialData,
   });
 
-  const { mutate: editStore, isLoading } = useMutation({
+  const storeId = params.storeId as string;
+
+  const { mutate: editStore, isLoading: isEditLoading } = useMutation({
     mutationFn: async (values: StoreEditRequest) => {
-      const storeId = params.storeId as string;
       const { data } = await axios.patch<Store>(
         `/api/stores/${storeId}`,
         values
@@ -62,15 +64,43 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
     },
   });
 
+  const { mutate: deleteStore, isLoading: isDeleteLoading } = useMutation({
+    mutationFn: async () => {
+      await axios.delete(`/api/stores/${storeId}`);
+    },
+    onSuccess: () => {
+      toast.success("Store Deleted.");
+      router.refresh();
+      router.push("/");
+    },
+    onError: (error) => {
+      console.log("error", error);
+      toast.error("Make sure you removed all products and categories first.");
+    },
+  });
+
+  const isLoading = isEditLoading || isDeleteLoading;
+
   function onSubmit(data: StoreEditRequest) {
     editStore(data);
   }
 
   return (
     <>
+      <AlertModal
+        isOpen={open}
+        onClose={() => setOpen(false)}
+        onConfirm={() => deleteStore()}
+        isLoading={isLoading}
+      />
       <div className="flex items-center justify-between">
         <Heading title="Settings" description="Manage store preferences" />
-        <Button variant="destructive" size="icon" disabled={isLoading}>
+        <Button
+          variant="destructive"
+          size="icon"
+          disabled={isLoading}
+          onClick={() => setOpen(true)}
+        >
           <Trash className="h-4 w-4" />
         </Button>
       </div>

@@ -10,3 +10,5 @@
   - [ShadCn](https://ui.shadcn.com/)
 
 - [Prisma](https://www.prisma.io/)
+
+https://youtu.be/5miHyP6lExg?si=QB8AAUVqZtsBJqCT&t=11662
