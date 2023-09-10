@@ -15,7 +15,7 @@ export async function PATCH(req: Request, { params }: StoreEditProps) {
 
     const { userId } = auth()
     if (!userId) {
-      return new NextResponse('Unauthorized', { status: 401 })
+      return new NextResponse('Unauthenticated', { status: 401 })
     }
 
     const body = await req.json() as unknown;
