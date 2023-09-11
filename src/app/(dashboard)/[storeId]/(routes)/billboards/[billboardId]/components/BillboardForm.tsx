@@ -63,11 +63,11 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
       );
       return data;
     },
-    onSuccess: (data) => {
+    onSuccess: () => {
       if (form.formState.isSubmitSuccessful) {
         toast.success("Billboard created.");
         router.refresh();
-        router.push(`/${storeId}/billboards/${data.id}`);
+        router.push(`/${storeId}/billboards`);
       }
     },
     onError: (error) => {
