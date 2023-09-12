@@ -4,10 +4,6 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { notFound, useParams, usePathname } from "next/navigation";
 
-type StoreParams = {
-  storeId: string;
-};
-
 export const MainNav: React.FC<React.HtmlHTMLAttributes<HTMLElement>> = ({
   className,
   ...props
