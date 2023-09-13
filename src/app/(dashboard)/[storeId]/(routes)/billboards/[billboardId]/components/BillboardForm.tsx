@@ -97,18 +97,20 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
     },
   });
 
-  const { mutate: deleteStore, isLoading: isDeleteLoading } = useMutation({
+  const { mutate: deleteBillboard, isLoading: isDeleteLoading } = useMutation({
     mutationFn: async () => {
       await axios.delete(`/api/${storeId}/billboards/${billboardId}`);
     },
     onSuccess: () => {
       toast.success("Billboard Deleted.");
-      router.refresh();
-      router.push("/");
     },
     onError: (error) => {
       console.log("error", error);
       toast.error("Make sure you removed all categories first.");
+    },
+    onSettled: () => {
+      router.refresh();
+      router.push(`/${storeId}/billboards`);
     },
   });
 
@@ -127,7 +129,7 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
       <AlertModal
         isOpen={open}
         onClose={() => setOpen(false)}
-        onConfirm={() => deleteStore()}
+        onConfirm={() => deleteBillboard()}
         isLoading={isLoading}
       />
       <div className="flex items-center justify-between">

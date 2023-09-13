@@ -1,5 +1,6 @@
 "use client";
 
+import { CellAction } from "./CellAction";
 import { Button } from "@/components/ui/Button";
 import { type ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
@@ -29,4 +30,5 @@ export const Columns: ColumnDef<BillboardColumn>[] = [
     accessorKey: "createdAt",
     header: "Date",
   },
+  { id: "actions", cell: ({ row }) => <CellAction data={row.original} /> },
 ];
