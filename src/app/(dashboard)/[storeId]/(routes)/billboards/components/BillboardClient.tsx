@@ -1,6 +1,7 @@
 "use client";
 
 import { Columns, type BillboardColumn } from "./Columns";
+import { ApiList } from "@/components/ui/ApiList";
 import { Button } from "@/components/ui/Button";
 import { DataTable } from "@/components/ui/DataTable";
 import { Heading } from "@/components/ui/Heading";
@@ -32,6 +33,9 @@ export const BillboardClient: React.FC<BillboardClientProps> = ({ data }) => {
       </div>
       <Separator />
       <DataTable columns={Columns} data={data} searchKey="label" />
+      <Heading title="API" description="API calls for Billboards" />
+      <Separator />
+      <ApiList entityName="billboards" entityIdName="billboardId" />
     </>
   );
 };
