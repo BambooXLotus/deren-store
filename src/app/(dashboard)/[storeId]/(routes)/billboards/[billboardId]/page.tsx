@@ -1,11 +1,11 @@
 import { BillboardForm } from "./components/BillboardForm";
 import { prisma } from "@/server/db";
 
-type BillBoardPageProps = {
+type BillboardPageProps = {
   params: { billboardId: string };
 };
 
-const BillBoardPage: React.FC<BillBoardPageProps> = async ({ params }) => {
+const BillBoardPage: React.FC<BillboardPageProps> = async ({ params }) => {
   const { billboardId } = params;
 
   const billboard = await prisma.billboard.findUnique({
