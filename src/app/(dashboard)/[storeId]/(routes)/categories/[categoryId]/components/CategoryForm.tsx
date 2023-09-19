@@ -17,6 +17,7 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
+  SelectValue,
 } from "@/components/ui/Select";
 import { Separator } from "@/components/ui/Separator";
 import {
@@ -25,7 +26,6 @@ import {
 } from "@/lib/validators/category";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { type Billboard, type Category } from "@prisma/client";
-import { SelectValue } from "@radix-ui/react-select";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { Trash } from "lucide-react";

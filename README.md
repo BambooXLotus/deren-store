@@ -1,4 +1,4 @@
-# Deren Store
+# Deren Store Admin
 
 ## Stack
 

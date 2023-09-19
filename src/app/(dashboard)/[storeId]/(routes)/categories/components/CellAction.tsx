@@ -7,9 +7,9 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/DropdownMenu";
-import { DropdownMenuLabel } from "@radix-ui/react-dropdown-menu";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
@@ -29,16 +29,18 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
 
   const storeId = params.storeId as string;
 
-  const { mutate: deleteBillboard, isLoading: isDeleteLoading } = useMutation({
+  const { mutate: deleteCategory, isLoading: isDeleteLoading } = useMutation({
     mutationFn: async () => {
-      await axios.delete(`/api/${storeId}/billboards/${data.id}`);
+      await axios.delete(`/api/${storeId}/categories/${data.id}`);
     },
     onSuccess: () => {
-      toast.success("Billboard Deleted.");
+      toast.success("Category Deleted.");
     },
     onError: (error) => {
       console.log("error", error);
-      toast.error("Make sure you removed all categories first.");
+      toast.error(
+        "Make sure you removed all products using this category first."
+      );
     },
     onSettled: () => {
       router.refresh();
@@ -48,7 +50,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
 
   async function onCopy(id: string) {
     await navigator.clipboard.writeText(id).then(() => {
-      toast.success("Billboard Id copied to clipboard.");
+      toast.success("Category Id copied to clipboard.");
     });
   }
 
@@ -57,7 +59,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
       <AlertModal
         isOpen={open}
         onClose={() => setOpen(false)}
-        onConfirm={deleteBillboard}
+        onConfirm={deleteCategory}
         isLoading={isDeleteLoading}
       />
       <DropdownMenu>
@@ -75,7 +77,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={() =>
-              void router.push(`/${storeId}/billboards/${data.id}`)
+              void router.push(`/${storeId}/categories/${data.id}`)
             }
           >
             <Edit className="mr-2 h-4 w-4" />
