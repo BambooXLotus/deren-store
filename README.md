@@ -11,4 +11,4 @@
 
 - [Prisma](https://www.prisma.io/)
 
-https://youtu.be/5miHyP6lExg?si=QB8AAUVqZtsBJqCT&t=11662
+https://youtu.be/5miHyP6lExg?si=3rqGufC3JV_YEyYL&t=21618
