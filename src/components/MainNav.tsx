@@ -43,6 +43,11 @@ export const MainNav: React.FC<React.HtmlHTMLAttributes<HTMLElement>> = ({
       active: pathname === `/${storeId}/colors`,
     },
     {
+      href: `/${storeId}/products`,
+      label: "Products",
+      active: pathname === `/${storeId}/products`,
+    },
+    {
       href: `/${storeId}/settings`,
       label: "Settings",
       active: pathname === `/${storeId}/settings`,
