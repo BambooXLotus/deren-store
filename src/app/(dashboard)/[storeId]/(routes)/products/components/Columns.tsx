@@ -6,14 +6,19 @@ import { ColorDot } from "@/components/ui/ColorDot";
 import { type ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 
-export type ColorColumn = {
+export type ProductColumn = {
   id: string;
   name: string;
-  value: string;
+  price: string;
+  size: string;
+  category: string;
+  color: string;
+  isFeatured: boolean;
+  isArchived: boolean;
   createdAt: string;
 };
 
-export const Columns: ColumnDef<ColorColumn>[] = [
+export const Columns: ColumnDef<ProductColumn>[] = [
   {
     accessorKey: "name",
     header: ({ column }) => {
@@ -29,22 +34,32 @@ export const Columns: ColumnDef<ColorColumn>[] = [
     },
   },
   {
-    accessorKey: "value",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Value
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
+    accessorKey: "isArchived",
+    header: "Archived",
+  },
+  {
+    accessorKey: "isFeatured",
+    header: "Featured",
+  },
+  {
+    accessorKey: "price",
+    header: "Price",
+  },
+  {
+    accessorKey: "category",
+    header: "Category",
+  },
+  {
+    accessorKey: "size",
+    header: "Size",
+  },
+  {
+    accessorKey: "color",
+    header: "Color",
     cell: ({ row }) => (
       <div className="flex items-center gap-x-2">
-        {row.original.value}
-        <ColorDot backgroundColor={row.original.value} />
+        {row.original.color}
+        <ColorDot backgroundColor={row.original.color} />
       </div>
     ),
   },
