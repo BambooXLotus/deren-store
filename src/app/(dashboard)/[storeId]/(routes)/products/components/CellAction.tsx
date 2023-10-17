@@ -29,12 +29,12 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
 
   const storeId = params.storeId as string;
 
-  const { mutate: deleteBillboard, isLoading: isDeleteLoading } = useMutation({
+  const { mutate: deleteProduct, isLoading: isDeleteLoading } = useMutation({
     mutationFn: async () => {
-      await axios.delete(`/api/${storeId}/billboards/${data.id}`);
+      await axios.delete(`/api/${storeId}/products/${data.id}`);
     },
     onSuccess: () => {
-      toast.success("Billboard Deleted.");
+      toast.success("Product Deleted.");
     },
     onError: (error) => {
       console.log("error", error);
@@ -48,7 +48,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
 
   async function onCopy(id: string) {
     await navigator.clipboard.writeText(id).then(() => {
-      toast.success("Billboard Id copied to clipboard.");
+      toast.success("Product Id copied to clipboard.");
     });
   }
 
@@ -57,7 +57,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
       <AlertModal
         isOpen={open}
         onClose={() => setOpen(false)}
-        onConfirm={deleteBillboard}
+        onConfirm={deleteProduct}
         isLoading={isDeleteLoading}
       />
       <DropdownMenu>
@@ -74,9 +74,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
             Copy Id
           </DropdownMenuItem>
           <DropdownMenuItem
-            onClick={() =>
-              void router.push(`/${storeId}/billboards/${data.id}`)
-            }
+            onClick={() => void router.push(`/${storeId}/products/${data.id}`)}
           >
             <Edit className="mr-2 h-4 w-4" />
             Update

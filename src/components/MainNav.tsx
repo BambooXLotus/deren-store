@@ -6,7 +6,7 @@ import { notFound, useParams, usePathname } from "next/navigation";
 
 export const MainNav: React.FC<React.HtmlHTMLAttributes<HTMLElement>> = ({
   className,
-  ...props
+  // ...props
 }) => {
   const pathname = usePathname();
   const params = useParams();
